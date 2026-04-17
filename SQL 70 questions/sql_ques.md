@@ -31,3 +31,46 @@ Show first name and last name concatinated into one column to show their full na
 
 SELECT CONCAT(firstname+' '+lastname) AS full_name
 FROM patients
+
+<!-- Question on joins -->
+Show first name, last name, and the full province name of each patient.
+
+SELECT first_name,last_name,province_name
+FROM patients
+JOIN province_names
+ON province_names.province_id = patients.province_id
+
+Show how many patients have a birth_date with 2010 as the birth year.
+
+SELECT (*) COUNT
+FROM patients
+WHERE YEAR(birth_date) = 2010
+
+Show the first_name, last_name, and height of the patient with the greatest height.
+
+<!-- first of all query for finding maximum height -->
+
+SELECT MAX(height)
+FROM patients
+
+<!-- selecting first_name,last_name and height given satisgying the given conditions -->
+
+SELECT first_name,last_name,height
+FROM patients
+WHERE height = (
+    SELECT MAX(height)
+    FROM patients
+)
+
+
+Show all columns for patients who have one of the following patient_ids:
+1,45,534,879,1000
+
+SELECT *
+FROM patients
+WHERE patient_id IN (1,45,534,879,1000)
+
+Show the total number of admissions
+
+SELECT COUNT(*)
+FROM admissions 
