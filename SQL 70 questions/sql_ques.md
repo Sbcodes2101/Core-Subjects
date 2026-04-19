@@ -224,3 +224,4 @@ Show the difference between the largest weight and smallest weight for patients 
 SELECT MAX(weight) - MIN(weight) AS weight_delta
 FROM patients
 WHERE lastname = 'Maroni'
+
