@@ -225,3 +225,102 @@ SELECT MAX(weight) - MIN(weight) AS weight_delta
 FROM patients
 WHERE lastname = 'Maroni'
 
+Show all of the days of the month (1-31) and how many admission_dates occurred on that day. Sort by the day with most admissions to least admissions.
+
+SELECT DAY(admission_date) AS day_number,COUNT(*) AS number_of_admissions
+FROM admission
+GROUP BY day_number
+ORDER BY number_of_admissions DESC
+
+Show all columns for patient_id 542's most recent admission_date.
+
+SELECT * 
+FROM admissions
+WHERE patient_id = 542
+GROUP BY patient_id
+HAVING admission_date = MAX(admission_date)
+
+Show patient_id, attending_doctor_id, and diagnosis for admissions that match one of the two criteria:
+1. patient_id is an odd number and attending_doctor_id is either 1, 5, or 19.
+2. attending_doctor_id contains a 2 and the length of patient_id is 3 characters.
+
+SELECT patient_id,attending_id,diagnosis
+FROM admission
+WHERE
+(patient_id %2 != 0 AND attending_doctor_id IN (1,5,19))
+OR
+(attending_doctor_id LIKE '%2%' AND LEN(patient_id)=3)
+
+
+Show first_name, last_name, and the total number of admissions attended for each doctor.
+
+Every admission has been attended by a doctor.
+
+SELECT first_name,last_name,COUNT(*) AS admissions_total
+FROM doctors
+JOIN admission
+ON admissions.attending_doctor_id = doctors.doctor_id
+GROUP BY admissions.attending_doctor_id
+
+For each doctor, display their id, full name, and the first and last admission date they attended.
+
+SELECT
+    doctor_id,CONCAT(firstname,'',lastname) AS full_name,
+    MAX(admission_date) AS first_admission_date,
+    MIN(admission_date) AS
+    last_admission_date
+FROM doctors
+JOIN admissions
+ON admissions.attending_doctor_id = doctors.doctor_id
+GROUP BY admissions.attending_doctor_id
+
+
+Display the total amount of patients for each province. Order by descending.
+
+
+SELECT province_name,COUNT(*) AS patient_count
+FROM province_names
+JOIN patients
+ON province_names.province_id = patients.province_id
+GROUP BY province_names.province_id
+ORDER BY patient_count DESC
+
+For every admission, display the patient's full name, their admission diagnosis, and their doctor's full name who diagnosed their problem.
+
+select concat(p.first_name,' ',p.last_name) AS patient_name,
+diagnosis,
+concat(d.first_name,' ',d.last_name) AS doctor_name
+from admissions a
+JOIN patients p
+ON a.patient_id = p.patient_id
+JOIN doctors d
+ON d.doctor_id = a.attending_doctor_id
+
+
+display the first name, last name and number of duplicate patients based on their first name and last name.
+
+Ex: A patient with an identical name can be considered a duplicate.
+
+SELECT first_name,last_name,COUNT(*)
+FROM patients
+GROUP BY first_name,last_name
+HAVING COUNT(*) > 1
+
+Display patient's full name,
+height in the units feet rounded to 1 decimal,
+weight in the unit pounds rounded to 0 decimals,
+birth_date,
+gender non abbreviated.
+
+Convert CM to feet by dividing by 30.48.
+Convert KG to pounds by multiplying by 2.205.
+
+select concat(first_name,' ',last_name) AS patient_name,
+		ROUND(height/30.48,1) AS height_feet,
+        ROUND(weight*2.205,0) AS weight_pound,
+        birth_date,
+        CASE
+         WHEN gender = 'M' THEN 'Male'
+		 ELSE 'Female'
+        END as gender_type
+FROM patients
