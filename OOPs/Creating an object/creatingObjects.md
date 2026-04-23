@@ -1,0 +1,7 @@
+template
+class {
+    constructor
+
+
+    Destructor
+}
