@@ -324,3 +324,26 @@ select concat(first_name,' ',last_name) AS patient_name,
 		 ELSE 'Female'
         END as gender_type
 FROM patients
+
+
+Show patient_id, first_name, last_name from patients whose does not have any records in the admissions table. (Their patient_id does not exist in any admissions.patient_id rows.)
+
+SELECT patient_id,first_name,last_name
+FROM patients
+WHERE
+patient_id
+NOT IN
+(SELECT admissions.patient_id FROM admissions)
+
+Display a single row with max_visits, min_visits, average_visits where the maximum, minimum and average number of admissions per day is calculated. Average is rounded to 2 decimal places.
+
+SELECT
+    MAX(no_of_admissions) AS max_visits,
+    MIN(no_of_admissions) AS min_visits,
+    ROUND(AVG(no_of_admissions),2) AS average_visits
+SELECT 
+(admission_date,COUNT(*) AS no_of_admissions
+FROM admissions
+GROUP BY admission_date)
+
+
