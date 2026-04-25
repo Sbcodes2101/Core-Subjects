@@ -145,4 +145,9 @@ int main() {
  
     return 0;
 }
+
+
+# DESTRUCTOR
+
+-It is an instance member function 
  
