@@ -35,6 +35,7 @@ class Customer{
         cout<<name<<" "<<account_number<<" "<<balance<<endl;
     }
 
+    // Copy Constructor
     Customer(Customer &B)
     {
         name = B.name;
@@ -51,5 +52,7 @@ int main(){
     A2.display();
     A3.display();
     Customer A4(A3);
-    A4.display();
+    Customer A5;
+    A5 = A3;
+    A5.display();
 }
