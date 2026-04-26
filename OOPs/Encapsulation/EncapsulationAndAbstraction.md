@@ -32,3 +32,45 @@ You interact with the ATM through buttons — you never touch the internal wirin
 
 Quick Summary
 PointDetailDefinitionBinding data + methods + restricting accessAchieved viaAccess modifiers + getters/settersMain benefitData protection & controlled accessOpposite ofExposing everything as public
+
+
+# Static Data Member
+Static Data Members
+📌 Definition
+
+A static data member is shared among all objects of a class.
+
+✅ Key Points
+Only one copy exists (not per object).
+Stored in global/static memory, not inside objects.
+Must be defined outside the class.
+
+# Static Member Function
+
+Definition
+
+A static function belongs to the class, not objects.
+
+✅ Key Points
+Can be called using class name
+Cannot access non-static members directly
+Does NOT use this pointer
+
+# Const Variables
+Value cannot be changed after initialization
+
+const int x = 10;
+x = 20; // ❌ ERROR
+
+# Const with Pointers
+
+const int* p = &x;
+*p = 20; // ❌ cannot change value
+p = &y;  // ✅ can change pointer
+
+# Abstraction
+
+Display only essential information and hiding the details
+
+
+
