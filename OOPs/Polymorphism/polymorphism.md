@@ -34,18 +34,6 @@ Flexibility & extensibility
 Cleaner, more maintainable code
 Supports the Open/Closed Principle (open for extension, closed for modification)
 
-
-Quick Example (Java)
-javaclass Animal {
-    void sound() { System.out.println("Some sound"); }
-}
-class Dog extends Animal {
-    @Override
-    void sound() { System.out.println("Bark"); }
-}
-
-Animal a = new Dog();
-a.sound(); // Output: Bark  ← Runtime polymorphism
-
 Remember
 FeatureOverloadingOverridingWhen resolvedCompile-timeRuntimeInheritance neededNoYesSignatureDifferentSame
+
