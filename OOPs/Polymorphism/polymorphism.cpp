@@ -35,7 +35,6 @@ class Complex{
         ans.img = img+C.img;
         return ans;
     }
-
 };
 
 class Box {

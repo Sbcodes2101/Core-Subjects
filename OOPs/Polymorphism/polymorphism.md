@@ -37,3 +37,27 @@ Supports the Open/Closed Principle (open for extension, closed for modification)
 Remember
 FeatureOverloadingOverridingWhen resolvedCompile-timeRuntimeInheritance neededNoYesSignatureDifferentSame
 
+class Box {
+public:
+    int length, width, height;
+
+    Box(int l, int w, int h) : length(l), width(w), height(h) {}
+
+    // Overload +
+    Box operator+(const Box& other) {
+        return Box(length + other.length,
+                   width + other.width,
+                   height + other.height);
+    }
+
+    // Overload ==
+    bool operator==(const Box& other) {
+        return length == other.length &&
+               width  == other.width  &&
+               height == other.height;
+    }
+
+    void display() {
+        cout << "Box(" << length << ", " << width << ", " << height << ")\n";
+    }
+};
